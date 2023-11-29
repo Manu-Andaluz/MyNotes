@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ListItem from "./components/ListItem";
-import AddButton from "./components/AddButton";
+import ListItem from "./ListItem";
+import AddButton from "./AddButton";
 
 const NotesListPage = () => {
   let [notes, setNotes] = useState([]);
