@@ -35,7 +35,7 @@ const NotePage = ({ match, history, noteId }) => {
 
   let createNote = async () => {
     axios.post(
-      `http://localhost:8000/api/notes/`,
+      `http://localhost:8000/api/notes/create/`,
       {
         body: note.body,
       },
@@ -62,7 +62,7 @@ const NotePage = ({ match, history, noteId }) => {
   };
 
   let deleteNote = async () => {
-    axios.delete(`http://localhost:8000/api/notes/${noteId}/`, {
+    axios.delete(`http://localhost:8000/api/notes/${noteId}/delete`, {
       headers: {
         "Content-Type": "application/json",
       },
