@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ListItem from "./ListItem";
 import AddButton from "./AddButton";
+import axios from "axios";
 
 const NotesListPage = () => {
   let [notes, setNotes] = useState([]);
@@ -10,9 +11,13 @@ const NotesListPage = () => {
   }, []);
 
   let getNotes = async () => {
-    let response = await fetch("/api/notes/");
-    let data = await response.json();
-    setNotes(data);
+    try {
+      let response = await axios.get("http://localhost:8000/api/notes/");
+      console.log(response.data);
+      setNotes(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
