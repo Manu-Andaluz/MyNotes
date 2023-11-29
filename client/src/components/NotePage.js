@@ -1,4 +1,6 @@
 "use client";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 
 const ArrowLeft = () => (
@@ -15,7 +17,8 @@ const ArrowLeft = () => (
 );
 
 const NotePage = ({ match, history, noteId }) => {
-  let [note, setNote] = useState(null);
+  const router = useRouter();
+  let [note, setNote] = useState("");
 
   useEffect(() => {
     getNote();
@@ -24,39 +27,47 @@ const NotePage = ({ match, history, noteId }) => {
   let getNote = async () => {
     if (noteId === "new") return;
 
-    let response = await fetch(`http://localhost:8000/api/notes/${noteId}/`);
-    let data = await response.json();
-    setNote(data);
+    let response = await axios.get(
+      `http://localhost:8000/api/notes/${noteId}/`
+    );
+    setNote(response.data);
   };
 
   let createNote = async () => {
-    fetch(`/api/notes/`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    axios.post(
+      `http://localhost:8000/api/notes/`,
+      {
+        body: note.body,
       },
-      body: JSON.stringify(note),
-    });
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
 
   let updateNote = async () => {
-    fetch(`/api/notes/${noteId}/`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
+    axios.patch(
+      `http://localhost:8000/api/notes/${noteId}/update/`,
+      {
+        body: note.body,
       },
-      body: JSON.stringify(note),
-    });
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
 
   let deleteNote = async () => {
-    fetch(`/api/notes/${noteId}/`, {
-      method: "DELETE",
+    axios.delete(`http://localhost:8000/api/notes/${noteId}/`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    history.push("/");
+    router.push("/");
   };
 
   let handleSubmit = () => {
@@ -68,7 +79,7 @@ const NotePage = ({ match, history, noteId }) => {
     } else if (noteId === "new" && note.body !== null) {
       createNote();
     }
-    history.push("/");
+    router.push("/");
   };
 
   let handleChange = (value) => {
@@ -79,8 +90,8 @@ const NotePage = ({ match, history, noteId }) => {
   return (
     <div className="note">
       <div className="note-header">
-        <h3>
-          <ArrowLeft onClick={handleSubmit} />
+        <h3 onClick={handleSubmit}>
+          <ArrowLeft />
         </h3>
         {noteId !== "new" ? (
           <button onClick={deleteNote}>Delete</button>
