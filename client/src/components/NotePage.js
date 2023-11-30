@@ -28,14 +28,14 @@ const NotePage = ({ match, history, noteId }) => {
     if (noteId === "new") return;
 
     let response = await axios.get(
-      `http://localhost:8000/api/notes/${noteId}/`
+      `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/`
     );
     setNote(response.data);
   };
 
   let createNote = async () => {
     axios.post(
-      `http://localhost:8000/api/notes/create/`,
+      `https://mynotes-production-ac8e.up.railway.app/api/notes/create/`,
       {
         body: note.body,
       },
@@ -49,7 +49,7 @@ const NotePage = ({ match, history, noteId }) => {
 
   let updateNote = async () => {
     axios.patch(
-      `http://localhost:8000/api/notes/${noteId}/update/`,
+      `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/update/`,
       {
         body: note.body,
       },
@@ -62,11 +62,14 @@ const NotePage = ({ match, history, noteId }) => {
   };
 
   let deleteNote = async () => {
-    axios.delete(`http://localhost:8000/api/notes/${noteId}/delete`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    axios.delete(
+      `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/delete`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     router.push("/");
   };
 

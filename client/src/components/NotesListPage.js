@@ -12,7 +12,9 @@ const NotesListPage = () => {
 
   let getNotes = async () => {
     try {
-      let response = await axios.get("http://localhost:8000/api/notes/");
+      let response = await axios.get(
+        "https://mynotes-production-ac8e.up.railway.app/api/notes/"
+      );
       console.log(response.data);
       setNotes(response.data);
     } catch (error) {
