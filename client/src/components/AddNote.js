@@ -28,6 +28,12 @@ const AddNote = () => {
       <div className="notes-modal-item">
         <div>
           <textarea
+            onChange={(e) => {
+              setNewNote((note) => ({ ...note, title: e.target.value }));
+            }}
+            value={newNote.title}
+          ></textarea>
+          <textarea
             id="myTextarea"
             className="text-area-modal"
             onChange={(e) => {

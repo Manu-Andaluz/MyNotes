@@ -12,7 +12,7 @@ const NotesListPage = () => {
 
   useEffect(() => {
     getNotes();
-  }, [notes]);
+  }, []);
 
   return (
     <>

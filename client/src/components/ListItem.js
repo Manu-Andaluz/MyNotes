@@ -19,6 +19,7 @@ const showDialog = () => {
 };
 
 const ListItem = ({ note, setNewNotes }) => {
+  console.log(note);
   return (
     <>
       <div
@@ -29,7 +30,7 @@ const ListItem = ({ note, setNewNotes }) => {
         }}
       >
         <div>
-          <h3>{getTitle(note)}</h3>
+          <h3>{note.title ? note.title : "Untitled"}</h3>
           <p>{note.body}</p>
         </div>
         <div>

@@ -1,7 +1,7 @@
-import { Noto_Sans } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import "./globals.css";
 
-const roboto = Noto_Sans({
+const roboto = Open_Sans({
   weight: ["400", "300", "500", "600"],
   style: ["normal"],
   subsets: ["latin"],
