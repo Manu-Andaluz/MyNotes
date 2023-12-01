@@ -21,21 +21,22 @@ const NotePage = ({ match, history, noteId }) => {
   let [note, setNote] = useState("");
 
   useEffect(() => {
-    getNote();
+    const data = getNote();
+    setNote(data);
   }, [noteId]);
 
   let getNote = async () => {
     if (noteId === "new") return;
 
     let response = await axios.get(
-      `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/`
+      `http://localhost:8000/api/notes/${noteId}/`
     );
     setNote(response.data);
   };
 
   let createNote = async () => {
     axios.post(
-      `https://mynotes-production-ac8e.up.railway.app/api/notes/create/`,
+      `http://localhost:8000/api/notes/create/`,
       {
         body: note.body,
       },
@@ -49,7 +50,7 @@ const NotePage = ({ match, history, noteId }) => {
 
   let updateNote = async () => {
     axios.patch(
-      `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/update/`,
+      `http://localhost:8000/api/notes/${noteId}/update/`,
       {
         body: note.body,
       },
@@ -62,14 +63,11 @@ const NotePage = ({ match, history, noteId }) => {
   };
 
   let deleteNote = async () => {
-    axios.delete(
-      `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/delete`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    axios.delete(`http://localhost:8000/api/notes/${noteId}/delete`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     router.push("/");
   };
 

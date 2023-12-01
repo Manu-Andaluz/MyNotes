@@ -1,5 +1,5 @@
-import Link from "next/link";
 import React from "react";
+import EditNote from "./EditNote";
 
 let getTime = (note) => {
   return new Date(note.updated).toLocaleDateString();
@@ -13,29 +13,31 @@ let getTitle = (note) => {
   return title;
 };
 
-let getContent = (note) => {
-  let title = getTitle(note);
-  let content = note.body.replaceAll("\n", " ");
-  content = content.replaceAll(title, "");
-
-  if (content.length > 45) {
-    return content.slice(0, 45) + "...";
-  } else {
-    return content;
-  }
+const showDialog = () => {
+  let element = document.getElementById("note-modal");
+  element.showModal();
 };
 
-const ListItem = ({ note }) => {
+const ListItem = ({ note, setNewNotes }) => {
   return (
-    <Link href={`/note/${note.id}`}>
-      <div className="notes-list-item">
-        <h3>{getTitle(note)}</h3>
-        <p>
+    <>
+      <div
+        className="notes-list-item"
+        onClick={() => {
+          setNewNotes(note);
+          showDialog();
+        }}
+      >
+        <div>
+          <h3>{getTitle(note)}</h3>
+          <p>{note.body}</p>
+        </div>
+        <div>
+          <hr />
           <span>{getTime(note)}</span>
-          {getContent(note)}
-        </p>
+        </div>
       </div>
-    </Link>
+    </>
   );
 };
 

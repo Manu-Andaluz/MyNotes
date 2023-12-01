@@ -27,7 +27,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Lexend", sans-serif;
   color: inherit;
   font-size: inherit;
   scroll-behavior: smooth;
@@ -99,11 +98,16 @@ a {
 
 /* NOTES STYLES */
 
+.notes {
+  width: 100%;
+}
+
 .notes-header {
   display: flex;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 16px;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 16px;
 }
 
 .notes-title,
@@ -119,10 +123,12 @@ a {
 }
 
 .notes-list {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
   padding: 0;
-  margin: 16px 0;
-  height: 70vh;
-  overflow-y: auto;
+  margin: 3rem 1rem;
   scrollbar-width: none; /* Firefox */
 }
 
@@ -131,14 +137,23 @@ a {
 }
 
 .notes-list-item {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  min-width: 200px;
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 12px;
-  padding: 8px 16px;
+  padding: 16px;
   transition: all 0.2s ease-in-out;
+  background-color: #fef68a;
+}
+
+@media (min-width: 400px) {
+  .notes-list-item {
+    width: 350px;
+  }
 }
 
 .notes-list-item:hover {
-  background-color: var(--color-bg);
   cursor: pointer;
 }
 
@@ -147,15 +162,29 @@ a {
   font-weight: 600;
 }
 
-.notes-list-item p span {
+.notes-list-item p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--color-light);
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit the number of lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.notes-list-item span {
   color: var(--color-gray);
   display: inline-block;
   margin-right: 8px;
+  font-size: 14px;
 }
 
-.notes-list-item p {
-  font-size: 14px;
-  color: var(--color-light);
+.notes-list-item hr {
+  margin: 1rem 0 10px 0;
+  border: none;
+  border-top: 1px solid gray;
+  border-radius: 5px;
 }
 
 .floating-button {
@@ -231,4 +260,172 @@ a {
 
 .note textarea::-webkit-scrollbar {
   display: none;
+}
+
+/* modal */
+
+.dialog {
+  margin: auto;
+  padding: 0;
+  border: none;
+  outline: none;
+  display: grid;
+}
+
+.dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.3);
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  animation-fill-mode: forwards;
+  padding: 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .dialog::backdrop {
+    backdrop-filter: blur(16px) saturate(150%);
+  }
+}
+
+.dialog[open] {
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+
+  max-width: calc((100%) - 3em);
+  max-height: calc((100%) - 3rem);
+
+  animation-name: dialogIn;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  animation-fill-mode: forwards;
+  background: none;
+}
+
+.dialog:not([open]) {
+  pointer-events: none;
+  opacity: 0;
+}
+
+.container {
+  background-color: var(--color-surface);
+  padding: 1.5rem;
+  border-radius: 28px;
+  width: 500px;
+  border: 1px solid var(--color-outline-variant);
+}
+
+.close[open] {
+  animation-name: dialogOut;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  animation-fill-mode: forwards;
+}
+
+.close::backdrop {
+  animation-name: fadeOut;
+  animation-duration: 500ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+  animation-fill-mode: forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: scale(115%);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(100%);
+  }
+}
+
+@keyframes dialogOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.notes-modal-item {
+  display: grid;
+  grid-template-rows: 2fr 1fr;
+  min-width: 40vw;
+  width: 80vw;
+  height: 50vh;
+  border-bottom: 1px solid var(--color-border);
+  margin-bottom: 12px;
+  padding: 16px;
+  transition: all 0.2s ease-in-out;
+  background-color: #fef68a;
+  border: none;
+  border-radius: 16px;
+}
+
+.text-area-modal {
+  width: 50vw;
+  height: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 16px 12px;
+  width: 100%;
+  resize: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+.text-area-modal:active,
+.text-area-modal:focus {
+  outline: none;
+  border: none;
+}
+
+.text-area-modal::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 2rem;
+  margin: auto;
+}
+
+.modal-buttons button {
+  border: 0;
+  font-size: 14px;
+  background-color: white;
+  padding: 8px 16px;
+  width: 150px;
+  cursor: pointer;
+  border-radius: 16px;
+  transition: background 500ms ease;
+}
+
+.modal-buttons button:hover {
+  color: white;
+  background-color: var(--color-main);
 }

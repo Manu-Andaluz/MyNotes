@@ -16,10 +16,14 @@ const Icon = () => (
 );
 
 const AddButton = () => {
+  const showDialog = () => {
+    let element = document.getElementById("note-modal");
+    element.showModal();
+  };
   return (
-    <Link href="/note/new" className="floating-button">
+    <div onClick={showDialog} className="floating-button">
       <Icon />
-    </Link>
+    </div>
   );
 };
 
