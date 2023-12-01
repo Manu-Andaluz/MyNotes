@@ -19,7 +19,7 @@ export const useRequests = () => {
     let response;
     try {
       response = await axios.get("http://localhost:8000/api/notes/");
-      setNotes(response.data);
+      setNotes((data) => response.data);
     } catch (error) {
       console.log(error);
     }
@@ -52,6 +52,7 @@ export const useRequests = () => {
         },
       }
     );
+
     closeNewNoteDialog();
   };
 
@@ -68,6 +69,7 @@ export const useRequests = () => {
         },
       }
     );
+
     closeDialog();
   };
 
