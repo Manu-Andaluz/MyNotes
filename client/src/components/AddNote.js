@@ -1,42 +1,27 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
-import axios from "axios";
 
 const AddNote = ({ setNotes }) => {
-  const { closeNewNoteDialog } = useRequests();
-  const [newNote, setNewNote] = useState(0);
+  const { closeNewNoteDialog, createNote, getNotes } = useRequests();
+  const [newNote, setNewNote] = useState({ body: "", title: "" });
+
+  useEffect(() => {}, [newNote]);
 
   useEffect(() => {
-    let textarea = document.getElementById("myTextarea");
+    let textarea = document.getElementById("nose");
     // Set the cursor to the end of the text
     textarea.focus();
     textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
   }, []);
 
   const handleDone = async () => {
-    const createNote = async () => {
-      await axios.post(
-        `http://localhost:8000/api/notes/create/`,
-        {
-          body: newNote.body,
-          title: newNote.title,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    };
     await createNote(newNote);
-    const getNotes = async () => {
-      const response = await axios.get("http://localhost:8000/api/notes/");
-      setNotes((data) => response.data);
-    };
-    await getNotes();
+    setNewNote((data) => {
+      return { body: "", title: "" };
+    });
+    await getNotes(setNotes);
     closeNewNoteDialog();
-    setNewNote("");
   };
 
   return (
@@ -53,7 +38,7 @@ const AddNote = ({ setNotes }) => {
             value={newNote.title}
           ></textarea>
           <textarea
-            id="myTextarea"
+            id="nose"
             placeholder="Note ..."
             className="text-area-modal"
             onChange={(e) => {
@@ -64,7 +49,7 @@ const AddNote = ({ setNotes }) => {
         </div>
       </div>
       <div className="modal-buttons">
-        <button onClick={() => closeNewNoteDialog()}>Cancel</button>
+        <button onClick={closeNewNoteDialog}>Cancel</button>
         <button onClick={handleDone}>Done</button>
       </div>
     </dialog>

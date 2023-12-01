@@ -38,7 +38,7 @@ export const useRequests = () => {
   };
 
   const createNote = async (newNote) => {
-    axios.post(
+    await axios.post(
       `http://localhost:8000/api/notes/create/`,
       {
         body: newNote.body,
@@ -50,8 +50,6 @@ export const useRequests = () => {
         },
       }
     );
-
-    closeNewNoteDialog();
   };
 
   const updateNote = async (newNote) => {
