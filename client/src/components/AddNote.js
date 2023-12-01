@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
+import axios from "axios";
 
 const AddNote = ({ setNotes }) => {
-  const { createNote, closeNewNoteDialog } = useRequests();
+  const { closeNewNoteDialog } = useRequests();
   const [newNote, setNewNote] = useState(0);
 
   useEffect(() => {
@@ -13,10 +14,29 @@ const AddNote = ({ setNotes }) => {
     textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
   }, []);
 
-  const handleDone = () => {
-    createNote(newNote);
+  const handleDone = async () => {
+    const createNote = async () => {
+      await axios.post(
+        `http://localhost:8000/api/notes/create/`,
+        {
+          body: newNote.body,
+          title: newNote.title,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    };
+    await createNote(newNote);
+    const getNotes = async () => {
+      const response = await axios.get("http://localhost:8000/api/notes/");
+      setNotes((data) => response.data);
+    };
+    await getNotes();
+    closeNewNoteDialog();
     setNewNote("");
-    setNotes((data) => [newNote, ...data]);
   };
 
   return (

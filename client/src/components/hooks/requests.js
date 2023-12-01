@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export const useRequests = () => {
-  const [notes, setNotes] = useState([]);
-
   const closeDialog = () => {
     const dialog = document.getElementById("note-modal");
     dialog.close();
@@ -15,11 +13,11 @@ export const useRequests = () => {
     dialog.close();
   };
 
-  const getNotes = async () => {
+  const getNotes = async (setNotes) => {
     let response;
     try {
       response = await axios.get("http://localhost:8000/api/notes/");
-      setNotes((data) => response.data);
+      await setNotes((data) => response.data);
     } catch (error) {
       console.log(error);
     }
@@ -57,7 +55,7 @@ export const useRequests = () => {
   };
 
   const updateNote = async (newNote) => {
-    axios.patch(
+    await axios.patch(
       `http://localhost:8000/api/notes/${newNote.id}/update/`,
       {
         body: newNote.body,
@@ -69,17 +67,14 @@ export const useRequests = () => {
         },
       }
     );
-
-    closeDialog();
   };
 
   const deleteNote = async (noteId) => {
-    axios.delete(`http://localhost:8000/api/notes/${noteId}/delete`, {
+    await axios.delete(`http://localhost:8000/api/notes/${noteId}/delete`, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-    closeDialog();
   };
 
   return {
@@ -88,8 +83,6 @@ export const useRequests = () => {
     createNote,
     updateNote,
     deleteNote,
-    notes,
-    setNotes,
     closeDialog,
     closeNewNoteDialog,
   };
