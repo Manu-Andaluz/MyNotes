@@ -7,19 +7,13 @@ import AddNote from "./AddNote";
 import axios from "axios";
 
 const NotesListPage = () => {
-  // const { getNotes, closeDialog } = useRequests();
+  const { getNotes } = useRequests();
   const [newNote, setNewNotes] = useState([]);
   const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    const getNotes = async () => {
-      const response = await axios.get("http://localhost:8000/api/notes/");
-      setNotes((data) => response.data);
-    };
-    getNotes();
+    getNotes(setNotes);
   }, []);
-
-  useEffect(() => {}, [notes]);
 
   return (
     <>

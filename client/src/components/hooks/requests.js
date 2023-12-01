@@ -16,7 +16,9 @@ export const useRequests = () => {
   const getNotes = async (setNotes) => {
     let response;
     try {
-      response = await axios.get("http://localhost:8000/api/notes/");
+      response = await axios.get(
+        "https://mynotes-production-ac8e.up.railway.app/api/notes/"
+      );
       await setNotes((data) => response.data);
     } catch (error) {
       console.log(error);
@@ -29,7 +31,7 @@ export const useRequests = () => {
 
     try {
       let response = await axios.get(
-        `http://localhost:8000/api/notes/${noteId}/`
+        `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/`
       );
       return response.data;
     } catch (error) {
@@ -39,7 +41,7 @@ export const useRequests = () => {
 
   const createNote = async (newNote) => {
     await axios.post(
-      `http://localhost:8000/api/notes/create/`,
+      `https://mynotes-production-ac8e.up.railway.app/api/notes/create/`,
       {
         body: newNote.body,
         title: newNote.title,
@@ -54,7 +56,7 @@ export const useRequests = () => {
 
   const updateNote = async (newNote) => {
     await axios.patch(
-      `http://localhost:8000/api/notes/${newNote.id}/update/`,
+      `https://mynotes-production-ac8e.up.railway.app/api/notes/${newNote.id}/update/`,
       {
         body: newNote.body,
         title: newNote.title,
@@ -68,11 +70,14 @@ export const useRequests = () => {
   };
 
   const deleteNote = async (noteId) => {
-    await axios.delete(`http://localhost:8000/api/notes/${noteId}/delete`, {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    await axios.delete(
+      `https://mynotes-production-ac8e.up.railway.app/api/notes/${noteId}/delete`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   };
 
   return {
