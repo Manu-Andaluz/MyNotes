@@ -34,7 +34,7 @@ const EditNote = ({ note, setNotes }) => {
   return (
     <dialog id={"note-modal"} className="dialog">
       <div className="notes-modal-item">
-        <div>
+        <div className="container-modal-item">
           <textarea
             className="title-area-modal"
             maxLength={50}
