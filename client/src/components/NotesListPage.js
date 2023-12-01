@@ -6,9 +6,8 @@ import { useRequests } from "./hooks/requests";
 import AddNote from "./AddNote";
 
 const NotesListPage = () => {
-  const { getNotes, notes, setNotes } = useRequests();
+  const { getNotes, notes, closeDialog } = useRequests();
   const [newNote, setNewNotes] = useState([]);
-  const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
     getNotes();
@@ -17,7 +16,7 @@ const NotesListPage = () => {
   return (
     <>
       <AddNote />
-      <EditNote note={newNote} setNotes={setNotes} />
+      <EditNote note={newNote} />
       <div className="notes">
         <div className="notes-header">
           <h2 className="notes-title">&#9782; MyNotes</h2>

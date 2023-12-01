@@ -1,31 +1,18 @@
 import axios from "axios";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export const useRequests = () => {
   const [notes, setNotes] = useState([]);
 
-  const closeDialog = (e) => {
-    var dialog = document.getElementById("note-modal");
-    //dialog.classList.add(styles.close);
-    //   const animationEndHandler = (event) => {
-    //     dialog.close();
-    //     //dialog.classList.remove(styles.close);
-    //     //dialog.removeEventListener("animationend", animationEndHandler);
-    //   };
+  const closeDialog = () => {
+    const dialog = document.getElementById("note-modal");
     dialog.close();
-    //dialog.addEventListener("animationend", animationEndHandler);
   };
 
-  const closeNewNoteDialog = (e) => {
-    var dialog = document.getElementById("add-note-modal");
-    //dialog.classList.add(styles.close);
-    //   const animationEndHandler = (event) => {
-    //     dialog.close();
-    //     //dialog.classList.remove(styles.close);
-    //     //dialog.removeEventListener("animationend", animationEndHandler);
-    //   };
+  const closeNewNoteDialog = () => {
+    const dialog = document.getElementById("add-note-modal");
     dialog.close();
-    //dialog.addEventListener("animationend", animationEndHandler);
   };
 
   const getNotes = async () => {
@@ -73,6 +60,7 @@ export const useRequests = () => {
       `http://localhost:8000/api/notes/${newNote.id}/update/`,
       {
         body: newNote.body,
+        title: newNote.title,
       },
       {
         headers: {
@@ -100,5 +88,7 @@ export const useRequests = () => {
     deleteNote,
     notes,
     setNotes,
+    closeDialog,
+    closeNewNoteDialog,
   };
 };

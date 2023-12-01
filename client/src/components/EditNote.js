@@ -1,16 +1,11 @@
 "use client";
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
 
-const closeDialog = (e) => {
-  const dialog = document.getElementById("note-modal");
-  dialog.close();
-};
-
 const EditNote = ({ note }) => {
-  const { getNotes, createNote, updateNote, deleteNote } = useRequests();
-  const [newNote, setNewNote] = useState(note ? note : "");
+  console.log(note.title);
+  const { updateNote, deleteNote, closeDialog } = useRequests();
+  const [newNote, setNewNote] = useState(note);
 
   useEffect(() => {
     setNewNote(note);
@@ -24,19 +19,22 @@ const EditNote = ({ note }) => {
   }, []);
 
   const handleDone = () => {
-    if (note?.id) {
-      updateNote(newNote);
-      setNewNote("");
-    } else {
-      createNote(newNote);
-      setNewNote("");
-    }
+    updateNote(newNote);
+    setNewNote("");
   };
 
   return (
     <dialog id={"note-modal"} className="dialog">
       <div className="notes-modal-item">
         <div>
+          <textarea
+            className="title-area-modal"
+            maxLength={50}
+            onChange={(e) => {
+              setNewNote((note) => ({ ...note, title: e.target.value }));
+            }}
+            value={newNote.title}
+          ></textarea>
           <textarea
             id="myTextarea"
             className="text-area-modal"
@@ -50,14 +48,12 @@ const EditNote = ({ note }) => {
       <div className="modal-buttons">
         <button onClick={closeDialog}>Cancel</button>
         <button onClick={handleDone}>Done</button>
-        {note?.id && (
-          <button
-            style={{ backgroundColor: "red", color: "white" }}
-            onClick={() => deleteNote(note.id)}
-          >
-            Delete
-          </button>
-        )}
+        <button
+          style={{ backgroundColor: "red", color: "white" }}
+          onClick={() => deleteNote(note.id)}
+        >
+          Delete
+        </button>
       </div>
     </dialog>
   );

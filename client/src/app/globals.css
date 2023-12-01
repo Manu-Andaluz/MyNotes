@@ -430,3 +430,24 @@ a {
   color: white;
   background-color: var(--color-main);
 }
+
+.title-area-modal {
+  width: 50vw;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  border-bottom: 1px solid gray;
+  padding: 16px 12px;
+  width: 100%;
+  resize: none;
+  scrollbar-width: none; /* Firefox */
+}
+
+.title-area-modal:active,
+.title-area-modal:focus {
+  outline: none;
+}
+
+.title-area-modal::-webkit-scrollbar {
+  display: none;
+}

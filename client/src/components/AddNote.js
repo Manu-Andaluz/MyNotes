@@ -2,14 +2,9 @@
 import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
 
-const closeDialog = (e) => {
-  const dialog = document.getElementById("add-note-modal");
-  dialog.close();
-};
-
 const AddNote = () => {
-  const { createNote } = useRequests();
-  const [newNote, setNewNote] = useState("");
+  const { createNote, closeNewNoteDialog } = useRequests();
+  const [newNote, setNewNote] = useState(0);
 
   useEffect(() => {
     let textarea = document.getElementById("myTextarea");
@@ -28,6 +23,9 @@ const AddNote = () => {
       <div className="notes-modal-item">
         <div>
           <textarea
+            className="title-area-modal"
+            placeholder="Title"
+            maxLength={50}
             onChange={(e) => {
               setNewNote((note) => ({ ...note, title: e.target.value }));
             }}
@@ -35,6 +33,7 @@ const AddNote = () => {
           ></textarea>
           <textarea
             id="myTextarea"
+            placeholder="Note ..."
             className="text-area-modal"
             onChange={(e) => {
               setNewNote((note) => ({ ...note, body: e.target.value }));
@@ -44,7 +43,7 @@ const AddNote = () => {
         </div>
       </div>
       <div className="modal-buttons">
-        <button onClick={closeDialog}>Cancel</button>
+        <button onClick={() => closeNewNoteDialog()}>Cancel</button>
         <button onClick={handleDone}>Done</button>
       </div>
     </dialog>

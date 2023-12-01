@@ -1,6 +1,5 @@
 import React from "react";
 import AddIcon from "../assets/add.svg";
-import Link from "next/link";
 
 const Icon = () => (
   <svg
