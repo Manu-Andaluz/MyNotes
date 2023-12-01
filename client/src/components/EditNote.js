@@ -1,9 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
+import axios from "axios";
 
 const EditNote = ({ note, setNotes }) => {
-  const { updateNote, deleteNote, closeDialog } = useRequests();
+  const { deleteNote, updateNote, closeDialog, getNotes } = useRequests();
   const [newNote, setNewNote] = useState(note);
 
   useEffect(() => {
@@ -17,13 +18,17 @@ const EditNote = ({ note, setNotes }) => {
     textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
   }, []);
 
-  const handleDone = () => {
-    updateNote(newNote);
+  const handleDone = async () => {
+    await updateNote(newNote);
     setNewNote("");
+    await getNotes(setNotes);
+    closeDialog();
+  };
 
-    setNotes((data) =>
-      data.map((item) => (item.id === newNote.id ? newNote : item))
-    );
+  const handleDelete = async () => {
+    await deleteNote(note.id);
+    await getNotes(setNotes);
+    closeDialog();
   };
 
   return (
@@ -53,10 +58,7 @@ const EditNote = ({ note, setNotes }) => {
         <button onClick={handleDone}>Done</button>
         <button
           style={{ backgroundColor: "red", color: "white" }}
-          onClick={() => {
-            setNotes((data) => data.filter((item) => item.id !== newNote.id));
-            deleteNote(note.id);
-          }}
+          onClick={handleDelete}
         >
           Delete
         </button>

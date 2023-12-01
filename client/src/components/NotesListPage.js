@@ -4,17 +4,16 @@ import AddButton from "./AddButton";
 import EditNote from "./EditNote";
 import { useRequests } from "./hooks/requests";
 import AddNote from "./AddNote";
+import axios from "axios";
 
 const NotesListPage = () => {
-  const { getNotes, notes, closeDialog, setNotes } = useRequests();
+  const { getNotes } = useRequests();
   const [newNote, setNewNotes] = useState([]);
-  const [firstRender, setFirstRender] = useState(true);
+  const [notes, setNotes] = useState([]);
 
   useEffect(() => {
-    getNotes();
+    getNotes(setNotes);
   }, []);
-
-  useEffect(() => {}, [notes]);
 
   return (
     <>

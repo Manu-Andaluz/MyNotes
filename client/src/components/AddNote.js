@@ -3,20 +3,25 @@ import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
 
 const AddNote = ({ setNotes }) => {
-  const { createNote, closeNewNoteDialog } = useRequests();
-  const [newNote, setNewNote] = useState(0);
+  const { closeNewNoteDialog, createNote, getNotes } = useRequests();
+  const [newNote, setNewNote] = useState({ body: "", title: "" });
+
+  useEffect(() => {}, [newNote]);
 
   useEffect(() => {
-    let textarea = document.getElementById("myTextarea");
+    let textarea = document.getElementById("nose");
     // Set the cursor to the end of the text
     textarea.focus();
     textarea.selectionStart = textarea.selectionEnd = textarea.value.length;
   }, []);
 
-  const handleDone = () => {
-    createNote(newNote);
-    setNewNote("");
-    setNotes((data) => [newNote, ...data]);
+  const handleDone = async () => {
+    await createNote(newNote);
+    setNewNote((data) => {
+      return { body: "", title: "" };
+    });
+    await getNotes(setNotes);
+    closeNewNoteDialog();
   };
 
   return (
@@ -33,7 +38,7 @@ const AddNote = ({ setNotes }) => {
             value={newNote.title}
           ></textarea>
           <textarea
-            id="myTextarea"
+            id="nose"
             placeholder="Note ..."
             className="text-area-modal"
             onChange={(e) => {
@@ -44,7 +49,7 @@ const AddNote = ({ setNotes }) => {
         </div>
       </div>
       <div className="modal-buttons">
-        <button onClick={() => closeNewNoteDialog()}>Cancel</button>
+        <button onClick={closeNewNoteDialog}>Cancel</button>
         <button onClick={handleDone}>Done</button>
       </div>
     </dialog>
