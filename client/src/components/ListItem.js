@@ -11,7 +11,6 @@ const showDialog = () => {
 };
 
 const ListItem = ({ note, setNewNotes }) => {
-  console.log(note);
   return (
     <>
       <div

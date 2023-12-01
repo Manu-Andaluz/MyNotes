@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
 
-const AddNote = () => {
+const AddNote = ({ setNotes }) => {
   const { createNote, closeNewNoteDialog } = useRequests();
   const [newNote, setNewNote] = useState(0);
 
@@ -16,6 +16,7 @@ const AddNote = () => {
   const handleDone = () => {
     createNote(newNote);
     setNewNote("");
+    setNotes((data) => [newNote, ...data]);
   };
 
   return (

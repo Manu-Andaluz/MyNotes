@@ -2,8 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useRequests } from "./hooks/requests";
 
-const EditNote = ({ note }) => {
-  console.log(note.title);
+const EditNote = ({ note, setNotes }) => {
   const { updateNote, deleteNote, closeDialog } = useRequests();
   const [newNote, setNewNote] = useState(note);
 
@@ -21,6 +20,10 @@ const EditNote = ({ note }) => {
   const handleDone = () => {
     updateNote(newNote);
     setNewNote("");
+
+    setNotes((data) =>
+      data.map((item) => (item.id === newNote.id ? newNote : item))
+    );
   };
 
   return (
@@ -50,7 +53,10 @@ const EditNote = ({ note }) => {
         <button onClick={handleDone}>Done</button>
         <button
           style={{ backgroundColor: "red", color: "white" }}
-          onClick={() => deleteNote(note.id)}
+          onClick={() => {
+            setNotes((data) => data.filter((item) => item.id !== newNote.id));
+            deleteNote(note.id);
+          }}
         >
           Delete
         </button>
