@@ -143,6 +143,7 @@ a {
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 12px;
   padding: 16px;
+  border-radius: 16px;
   transition: all 0.2s ease-in-out;
   background-color: #fef68a;
 }

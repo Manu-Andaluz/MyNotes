@@ -3,22 +3,24 @@ import ListItem from "./ListItem";
 import AddButton from "./AddButton";
 import EditNote from "./EditNote";
 import { useRequests } from "./hooks/requests";
+import AddNote from "./AddNote";
 
 const NotesListPage = () => {
-  const { getNotes } = useRequests();
-  const [notes, setNotes] = useState([]);
+  const { getNotes, notes, setNotes } = useRequests();
   const [newNote, setNewNotes] = useState([]);
+  const [isModalActive, setIsModalActive] = useState(false);
 
   useEffect(() => {
-    getNotes().then((res) => setNotes(res.data));
-  }, []);
+    getNotes();
+  }, [notes]);
 
   return (
     <>
-      <EditNote note={newNote} />
+      <AddNote />
+      <EditNote note={newNote} setNotes={setNotes} />
       <div className="notes">
         <div className="notes-header">
-          <h2 className="notes-title">&#9782; Notes</h2>
+          <h2 className="notes-title">&#9782; MyNotes</h2>
           <p className="notes-count">{notes.length}</p>
         </div>
 

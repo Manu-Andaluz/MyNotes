@@ -17,7 +17,7 @@ const Icon = () => (
 
 const AddButton = () => {
   const showDialog = () => {
-    let element = document.getElementById("note-modal");
+    let element = document.getElementById("add-note-modal");
     element.showModal();
   };
   return (
