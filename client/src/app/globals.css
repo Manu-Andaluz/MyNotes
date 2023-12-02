@@ -128,7 +128,7 @@ a {
   justify-content: center;
   flex-wrap: wrap;
   padding: 0;
-  margin: 3rem 1rem;
+  margin: 2rem 1rem;
   scrollbar-width: none; /* Firefox */
 }
 
@@ -139,7 +139,6 @@ a {
 .notes-list-item {
   display: grid;
   grid-template-rows: 2fr 1fr;
-
   min-width: 200px;
   border-bottom: 1px solid var(--color-border);
   margin-bottom: 12px;
