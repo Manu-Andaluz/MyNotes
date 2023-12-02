@@ -167,6 +167,7 @@ a {
 
 .notes-list-item:hover {
   cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .notes-list-item h3,
