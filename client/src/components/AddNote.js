@@ -27,7 +27,7 @@ const AddNote = ({ setNotes }) => {
   return (
     <dialog id={"add-note-modal"} className="dialog">
       <div className="notes-modal-item">
-        <div>
+        <div className="container-modal-item">
           <textarea
             className="title-area-modal"
             placeholder="Title"

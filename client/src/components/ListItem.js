@@ -19,6 +19,7 @@ const ListItem = ({ note, setNewNotes }) => {
           setNewNotes(note);
           showDialog();
         }}
+        style={{ backgroundColor: note.color ? note.color : "" }}
       >
         <div>
           <h3>{note.title ? note.title : "Untitled"}</h3>
