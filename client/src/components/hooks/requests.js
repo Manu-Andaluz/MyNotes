@@ -40,11 +40,15 @@ export const useRequests = () => {
   };
 
   const createNote = async (newNote) => {
+    const colors = ["#fef68a", "#e3f4f4", "#faf2d3", "#d0e7d2"];
+    const randomColor = Math.floor(Math.random() * colors.length);
+
     await axios.post(
       `https://mynotes-production-ac8e.up.railway.app/api/notes/create/`,
       {
         body: newNote.body,
         title: newNote.title,
+        color: colors[randomColor],
       },
       {
         headers: {

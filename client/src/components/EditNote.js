@@ -33,7 +33,10 @@ const EditNote = ({ note, setNotes }) => {
 
   return (
     <dialog id={"note-modal"} className="dialog">
-      <div className="notes-modal-item">
+      <div
+        className="notes-modal-item"
+        style={{ backgroundColor: note.color ? note.color : "" }}
+      >
         <div className="container-modal-item">
           <textarea
             className="title-area-modal"

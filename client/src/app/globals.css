@@ -148,17 +148,6 @@ a {
   background-color: #fef68a;
 }
 
-.notes-list-item:nth-child(2n) {
-  background-color: #e3f4f4; /* Change this to your desired background color */
-}
-
-.notes-list-item:nth-child(3n) {
-  background-color: #dbdfaa; /* Change this to your desired background color */
-}
-
-.notes-list-item:nth-child(4n) {
-}
-
 @media (min-width: 400px) {
   .notes-list-item {
     width: 350px;
